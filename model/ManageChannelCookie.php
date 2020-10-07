@@ -13,6 +13,7 @@
       $channelName = "yfyc-$this->channelId"; // initializing channel name
 
       setcookie($channelName, true, time() + (86400 * 365), "/"); // set cookie having expiry date of 1 year
+      $_COOKIE[$channelName] = true;
     }
 
     // check channel id's availability in Cookie
