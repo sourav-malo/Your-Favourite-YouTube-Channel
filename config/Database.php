@@ -2,7 +2,7 @@
   class Database {
     // DB Params
     private $host = 'localhost';
-    private $db_name = 'your_favourite_youtube_channel';
+    private $db_name = 'your-favourite-youtube-channel';
     private $username = 'root';
     private $password = '';
     private $conn;

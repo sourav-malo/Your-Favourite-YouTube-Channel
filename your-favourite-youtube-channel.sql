@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2020 at 07:38 PM
+-- Generation Time: Oct 12, 2020 at 05:30 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.30
 
@@ -65,6 +65,55 @@ CREATE TABLE `rating` (
   `channel_id` int(11) NOT NULL,
   `rating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rating`
+--
+
+INSERT INTO `rating` (`channel_id`, `rating`) VALUES
+(15, 5),
+(15, 3),
+(12, 3),
+(12, 5),
+(11, 1),
+(11, 4),
+(3, 4),
+(3, 3),
+(13, 5),
+(13, 3),
+(1, 2),
+(1, 4),
+(4, 1),
+(4, 2),
+(10, 4),
+(10, 3),
+(2, 5),
+(2, 1),
+(5, 2),
+(5, 5),
+(8, 5),
+(8, 2),
+(14, 1),
+(14, 2),
+(9, 2),
+(9, 4),
+(6, 2),
+(6, 4),
+(7, 2),
+(7, 5),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4),
+(2, 4);
 
 --
 -- Indexes for dumped tables
