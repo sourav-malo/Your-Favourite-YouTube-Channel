@@ -28,8 +28,8 @@
 
   #Test
 
-  // $mngChannelCookie = new ManageChannelCookie(1);
-  // $mngChannelCookie->saveCookie();
-  // echo $mngChannelCookie->checkCookie();
+  $mngChannelCookie = new ManageChannelCookie(1);
+  $mngChannelCookie->saveCookie();
+  echo $mngChannelCookie->checkCookie();
 ?>
 
