@@ -3,11 +3,6 @@
     // properties
     public $channelId;
 
-    // constructor with channel id
-    public function __construct($channelId) {
-      $this->channelId = $channelId;
-    }
-
     // save channel id into cookie
     public function saveCookie() {
       $channelName = "yfyc-$this->channelId"; // initializing channel name
