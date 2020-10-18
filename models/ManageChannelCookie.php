@@ -5,7 +5,8 @@
 
     // save channel id into cookie
     public function saveCookie() {
-      $channelName = "yfyc-$this->channelId"; // initializing channel name
+      $channelName = "yfyc-".$this->channelId; // initializing channel name
+      echo json_encode(array("channel name" => $channelName));
 
       setcookie($channelName, true, time() + (86400 * 365), "/"); // set cookie having expiry date of 1 year
       $_COOKIE[$channelName] = true;
