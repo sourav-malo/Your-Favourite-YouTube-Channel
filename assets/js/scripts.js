@@ -2,10 +2,10 @@
 window.addEventListener('DOMContentLoaded', () => {
 
     
-    createChannelCookie(4)  // For Test 
+    
 
     // For All Channel
-    fetch('http://localhost/Your-Favourite-YouTube-Channel/api/read-channels.php')
+    fetch('api/read-channels.php')
         .then(res => res.json())
         .then(data => {
             checkChannelCookieAndRender(data)
@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
 function checkChannelCookieAndRender(channels){
     let channelCookieStatuses = new Array(0)
     channels.data.forEach(channel => {
-        fetch('http://localhost/Your-Favourite-YouTube-Channel/api/check-channel-cookie.php', {
+        fetch('api/check-channel-cookie.php', {
             method: 'POST',
             body: JSON.stringify({channel_id: channel.id})
           })
@@ -77,30 +77,56 @@ function renderChannels(channels, cookieStatuses) {
 
 
 
-// Create Channel Cookie 
-// This function will be called after click event on star
+// These functions will be called after click event on star
 
-function createChannelCookie(channelId) {
-    fetch('http://localhost/Your-Favourite-YouTube-Channel/api/create-channel-cookie.php', {
+function createChannelCookie(channelId, rating) {
+    fetch('api/create-channel-cookie.php', {
         method: 'POST',
         body: JSON.stringify({channel_id: channelId})
       }) 
         .then( res => res.json())
         .then( data => {
-            console.log(data)
-            checkCookie(1)
+            if (data.status === 'set') {
+                createNewRating(channelId, rating);
+            }
+            
         })
         .catch( err => console.log(err))
 }
 
-function checkCookie(channelId) { // This function is for test
-    fetch('http://localhost/Your-Favourite-YouTube-Channel/api/check-channel-cookie.php', {
-            method: 'POST',
-            body: JSON.stringify({channel_id: channelId})
-      })
+function createNewRating(channelId, rating) {
+    fetch('api/create-rating.php', {
+        method: 'POST',
+        body: JSON.stringify({
+            channel_id: channelId, 
+            rating: rating
+        })
+      }) 
         .then( res => res.json())
         .then( data => {
-            console.log(data)
+            if (data.status === 'Rating Inserted') {
+                updateNewRating(channelId)
+                // Have to hide The rating container
+            }
+            
+        })
+        .catch( err => console.log(err))
+}
+
+
+
+function updateNewRating(channelId) {
+    fetch('api/read-single-channel.php', {
+        method: 'POST',
+        body: JSON.stringify({channel_id: channelId})
+      }) 
+        .then( res => res.json())
+        .then( data => {
+            if (data.status === 'Channel Found') {
+//                console.log(data.data.rating)
+                // have to update the rating in DOM
+            }
+            
         })
         .catch( err => console.log(err))
 }
