@@ -12,7 +12,7 @@
   // Get raw posted data
   $data = json_decode(file_get_contents("php://input"));
 
-  $manageChannelCookie->channel_id = $data->channel_id;
+  $manageChannelCookie->channelId = $data->channel_id;
 
   // save Cookie
   $manageChannelCookie->saveCookie();
