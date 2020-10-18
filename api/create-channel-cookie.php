@@ -1,8 +1,8 @@
 <?php 
   // Headers
-  // header('Content-Type: application/json');
-  // header('Access-Control-Allow-Methods: POST');
-  // header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+  header('Content-Type: application/json');
+  header('Access-Control-Allow-Methods: POST');
+  header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
   include_once '../models/ManageChannelCookie.php';
 
@@ -12,11 +12,11 @@
   // Get raw posted data
   $data = json_decode(file_get_contents("php://input"));
 
-  $manageChannelCookie->channelId = $data->channel_id;
+  $manageChannelCookie->channel_id = $data->channel_id;
 
   // save Cookie
   $manageChannelCookie->saveCookie();
 
   // check Cookie
-  // echo json_encode(array('status' => $manageChannelCookie->checkCookie()));
+  echo json_encode(array('status' => $manageChannelCookie->checkCookie()));
 ?>

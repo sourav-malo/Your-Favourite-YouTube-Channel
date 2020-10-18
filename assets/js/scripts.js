@@ -88,19 +88,19 @@ function createChannelCookie(channelId) {
         .then( res => res.json())
         .then( data => {
             console.log(data)
-            // checkCookie(1)
+            checkCookie(1)
         })
         .catch( err => console.log(err))
 }
 
-// function checkCookie(channelId) { // This function is for test
-//     fetch('http://localhost/Your-Favourite-YouTube-Channel/api/check-channel-cookie.php', {
-//             method: 'POST',
-//             body: JSON.stringify({channel_id: channelId})
-//       })
-//         .then( res => res.json())
-//         .then( data => {
-//             console.log(data)
-//         })
-//         .catch( err => console.log(err))
-// }
+function checkCookie(channelId) { // This function is for test
+    fetch('http://localhost/Your-Favourite-YouTube-Channel/api/check-channel-cookie.php', {
+            method: 'POST',
+            body: JSON.stringify({channel_id: channelId})
+      })
+        .then( res => res.json())
+        .then( data => {
+            console.log(data)
+        })
+        .catch( err => console.log(err))
+}
