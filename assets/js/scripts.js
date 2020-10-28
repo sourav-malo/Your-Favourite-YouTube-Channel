@@ -165,7 +165,7 @@ function updateNewRating(channelId, ratingCount) {
     .then(data => {
       if (data.status === 'Channel Found') {
         let newRating = data.data.rating;
-        ratingCount.innerText = `${Math.round(newRating * 10) / 10}`
+        ratingCount.innerText = `${ Math.round(newRating * 10) / 10 }`
         // console.log(data.data.rating);
         // have to update the rating in DOM
 
