@@ -154,11 +154,11 @@ h4 {
 }
 .give:hover i {
   color: #fc0;
-  text-shadow: #fc0 0 0 20px;
+  text-shadow: #fc0 0 0 5px;
 }
 .give i.active {
   color: #fc0;
-  text-shadow: #fc0 0 0 20px;
+  text-shadow: #fc0 0 0 5px;
 }
 .give:hover i:nth-child(2) {
   transition-delay: 30ms;
