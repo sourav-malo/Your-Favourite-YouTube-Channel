@@ -27,7 +27,6 @@ async function checkChannelCookieAndRender(channels) {
 
 
 async function renderChannels(channels, cookieStatuses) {
-
     channels.data.forEach((channel, index) => {
         let ratingNANCheck = 'N/R'
         let ratingContainer = ''
@@ -60,23 +59,24 @@ function starCounter() {
     document.querySelectorAll('.channel').forEach((starContainer, index) => {
         starContainer.addEventListener('click', (e) => {
             let count = 1
-            if (e.target.classList.contains('give-rating')) {
-                e.target.parentElement.id = 'clicked';
-                let ratingCount = e.target.closest('div.channel').querySelector('div.avg-rating')
-                let currentStar = e.target
+            if (e.target.tagName == 'path' || e.target.tagName == 'svg') {
+                if (e.target.tagName == 'path') e.target.parentElement.parentElement.id = 'clicked'
+                if (e.target.tagName == 'svg') e.target.parentElement.id = 'clicked'
+                let ratingCount = e.target.closest('div.channel').querySelector('span.avg-rating')
+                console.log(ratingCount)
+                let currentStar = e.target.parentElement
                 while (currentStar.previousElementSibling) {
                     currentStar = currentStar.previousElementSibling
                         ++count
                 }
                 createChannelCookie(index, count, ratingCount)
+            } else {
+                console.log(e.target.tagName)
             }
         })
     })
 }
 
-
-
-// These functions will be called after click event on star
 
 function createChannelCookie(channelId, rating, ratingCount) {
     fetch('api/create-channel-cookie.php', {
@@ -105,8 +105,8 @@ function createNewRating(channelId, rating, ratingCount) {
         .then(res => res.json())
         .then(data => {
             if (data.status === 'Rating Inserted') {
-                document.querySelector('#clicked').style.visibility = 'hidden'; // added 
-                document.querySelector('#clicked').id = ''; // added
+                document.querySelector('#clicked').style.visibility = 'hidden';
+                document.querySelector('#clicked').id = '';
                 updateNewRating(channelId, ratingCount);
             }
 
@@ -127,7 +127,7 @@ function updateNewRating(channelId, ratingCount) {
         .then(data => {
             if (data.status === 'Channel Found') {
                 let newRating = data.data.rating;
-                ratingCount.innerText = `${ Math.round(newRating * 10) / 10 }`
+                ratingCount.innerText = `${ Math.round(newRating * 10) / 10 }/5`
             }
 
         })

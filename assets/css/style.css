@@ -84,7 +84,7 @@ a {
 
 .give svg,
 .give svg:hover ~ svg {
-  font-size: 1.6rem;
+  font-size: 2rem;
   color: #222;
   text-shadow: none;
   transition: color 200ms, text-shadow 200ms;
