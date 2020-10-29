@@ -29,56 +29,40 @@ async function checkChannelCookieAndRender(channels) {
 async function renderChannels(channels, cookieStatuses) {
 
     channels.data.forEach((channel, index) => {
-        let ratingNANCheck = ''
+        let ratingNANCheck = 'N/R'
         let ratingContainer = ''
-        if (channel.rating) ratingNANCheck = Math.round(channel.rating * 10) / 10
+        if (channel.rating) ratingNANCheck = `${Math.round(channel.rating * 10) / 10}/5`
         if (cookieStatuses[index] == 'unset') {
-            ratingContainer = `<div>
-                  <div class="give">
+            ratingContainer = `
+                <div class="give">
                     <i class="fas fa-star give-rating"></i>
                     <i class="fas fa-star give-rating"></i>
                     <i class="fas fa-star give-rating"></i>
                     <i class="fas fa-star give-rating"></i>
                     <i class="fas fa-star give-rating"></i>
-                  </div>
                 </div>
             `
         }
         const parser = new DOMParser();
         const parsedDocument = parser.parseFromString(`
-          <div class="grid-item">
-            <div class="card-container">
-              <div class="upper-container">
-                <div class="discounts">${ratingNANCheck}</div>
-                <div class="image-container">
-                  <img  src=${channel.logo_url} />
-                </div>
-              </div>
-
-              <div class="lower-container">
-                <div>
-                  <h3>${channel.title}</h3>
-                  <h4>Front-end Developer</h4>
-                </div>
-                ${ratingContainer}
-                <div>
-                  <a href=${channel.channel_url} class="btn"> View profile</a>
-                </div>
-              </div>
-            </div>
+          <div class="channel">
+            <span class="avg-rating">${ratingNANCheck}</span>
+            <img class="img"  src=${channel.logo_url} />
+            <a href=${channel.channel_url} class="title">${channel.title}</a>
+            ${ratingContainer}
           </div>`, "text/html");
-        document.getElementById('grid').appendChild(parsedDocument.getElementsByTagName('div')[0], true);
+        document.getElementById('channels').appendChild(parsedDocument.getElementsByTagName('div')[0], true);
     })
     starCounter();
 }
 
 function starCounter() {
-    document.querySelectorAll('.grid-item').forEach((starContainer, index) => {
+    document.querySelectorAll('.channel').forEach((starContainer, index) => {
         starContainer.addEventListener('click', (e) => {
             let count = 1
-            if (e.target.classList.contains('fas')) {
+            if (e.target.classList.contains('give-rating')) {
                 e.target.parentElement.id = 'clicked';
-                let ratingCount = e.target.closest('div.grid-item').querySelector('div.discounts')
+                let ratingCount = e.target.closest('div.channel').querySelector('div.avg-rating')
                 let currentStar = e.target
                 while (currentStar.previousElementSibling) {
                     currentStar = currentStar.previousElementSibling
