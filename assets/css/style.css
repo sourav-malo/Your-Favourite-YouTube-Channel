@@ -46,7 +46,9 @@ a {
 }
 
 .channel {
-  border: .1rem solid rgba(0, 0, 0, .1);
+  border: 0.1rem solid rgba(0, 0, 0, .1);
+  background-color: rgba(0,0,0,0.05);
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -62,7 +64,9 @@ a {
   right: 2rem;
   padding: .8rem 2rem;
   font-size: 1.6rem;
-  background-color: #F2F2F2;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  border: 0.1rem solid rgba(0, 0, 0, 0.2);
 }
 
 .channel .img {
@@ -96,11 +100,6 @@ a {
   text-shadow: #FFC100 0 0 5px;
 }
 
-.give svg.active {
-  color: #FFC100;
-  text-shadow: #FFC100 0 0 5px;
-}
-
 .give:hover svg:nth-child(2) {
   transition-delay: 30ms;
 }
@@ -115,4 +114,21 @@ a {
 
 .give:hover svg:nth-child(5) {
   transition-delay: 120ms;
+}
+
+
+
+/* Responsive */
+@media screen and (max-width : 1000px) {
+    .channels {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width : 670px) {
+    .heading {
+        font-size: 1.5rem;
+    }
+    .channels {
+        grid-template-columns: 1fr;
+    }
 }
