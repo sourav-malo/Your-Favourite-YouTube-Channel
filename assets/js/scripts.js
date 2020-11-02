@@ -1,3 +1,25 @@
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+  
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     fetch('api/read-channels.php')
         .then(res => res.json())
@@ -5,28 +27,17 @@ window.addEventListener('DOMContentLoaded', () => {
         .catch(err => console.log(err))
 })
 
-async function checkChannelCookieAndRender(channels) {
+function checkChannelCookieAndRender(channels) {
     let channelCookieStatuses = new Array(channels.length)
     let iCount = 0
-    channels.data.forEach(async channel => {
-        await fetch('api/check-channel-cookie.php', {
-                method: 'POST',
-                body: JSON.stringify({
-                    channel_id: channel.id
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                channelCookieStatuses[channel.id - 1] = data.status
-                if (++iCount == 15) renderChannels(channels, channelCookieStatuses)
-            })
-            .catch(err => console.log(err))
+    channels.data.forEach(channel => {
+        let channelName = `yfyc-${channel.id}`;
+        getCookie(channelName).length ? channelCookieStatuses[channel.id - 1] = "set" : channelCookieStatuses[channel.id - 1] = "unset";
+        if (++iCount == 15) renderChannels(channels, channelCookieStatuses)
     })
 }
 
-
-
-async function renderChannels(channels, cookieStatuses) {
+function renderChannels(channels, cookieStatuses) {
     channels.data.forEach((channel, index) => {
         let ratingNANCheck = 'N/R'
         let ratingContainer = ''
@@ -79,20 +90,10 @@ function starCounter() {
 
 
 function createChannelCookie(channelId, rating, ratingCount) {
-    fetch('api/create-channel-cookie.php', {
-            method: 'POST',
-            body: JSON.stringify({
-                channel_id: channelId + 1
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            createNewRating(channelId, rating, ratingCount)
-        })
-        .catch(err => console.log(err))
+    let channelName = `yfyc-${channelId + 1}`;
+    setCookie(channelName, true, 365);
+    createNewRating(channelId, rating, ratingCount);
 }
-
-
 
 function createNewRating(channelId, rating, ratingCount) {
     fetch('api/create-rating.php', {
